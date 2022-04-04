@@ -2,12 +2,7 @@ package com.galvanize.demo.Users;
 
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.apache.catalina.User;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @RestController

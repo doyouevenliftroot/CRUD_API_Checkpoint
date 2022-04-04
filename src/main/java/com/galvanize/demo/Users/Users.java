@@ -1,8 +1,7 @@
 package com.galvanize.demo.Users;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -24,10 +23,6 @@ public class Users {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail() {

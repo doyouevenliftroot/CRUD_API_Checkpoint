@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import javax.persistence.Table;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -39,7 +39,7 @@ public class UserControllerTest {
         testUser2.setEmail("theDudette@dudette.com");
         testUser2.setPassword("Dudettepassword");
 
-        Users usersId = this.repository.save(testUser);
+        this.repository.save(testUser);
         this.repository.save(testUser2);
 
         this.mvc.perform(get("/users"))
@@ -82,7 +82,7 @@ public class UserControllerTest {
     @Test // Endpoint #4: PATCH /users/{id}
     @Transactional
     @Rollback
-    void updateSingleUser() throws Exception {
+    void updateSingleUserEmail() throws Exception {
         Users testUser = new Users();
         testUser.setEmail("john@example.com");
         testUser.setPassword("Dudepassword");
@@ -96,6 +96,24 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.id", equalTo(record.getId())))
                 .andExpect(jsonPath("$.email", is("john@gmail.com")));
 
+    }
+
+    @Test // Endpoint #4: PATCH /users/{id}
+    @Transactional
+    @Rollback
+    void updateSingleUserPassword() throws Exception {
+        Users testUser = new Users();
+        testUser.setEmail("john@example.com");
+        testUser.setPassword("Dudepassword");
+        Users record = this.repository.save(testUser);
+        String path = String.format("/users/%d", record.getId());
+
+        this.mvc.perform(patch(path)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"password\": \"password1234\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", equalTo(record.getId())))
+                .andExpect(jsonPath("$.email", is("john@example.com")));
     }
 
     @Test //Endpoint #5 Delete and return the count with an Object
