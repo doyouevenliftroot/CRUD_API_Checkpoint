@@ -57,15 +57,16 @@ public class UserController {
         long count = repository.count();
         UserCounter newCounter = new UserCounter();
         newCounter.setTotalCount(count);
-
         return newCounter;
 
     }
 
     @PostMapping("/users/authenticate")
+
     public UserAuth returnUserPassMatchResults(@RequestBody Users user) {
 
         Users oldUserRecord = this.repository.findUsersByEmail(user.getEmail());
+
         if (oldUserRecord.getPassword().equals(user.getPassword())) {
             return new UserAuth(true, oldUserRecord);
         } return new UserAuth(false);

@@ -2,6 +2,7 @@ package com.galvanize.demo.Users;
 
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class Users {
     @JsonView(Views.ListView.class)
     private String email;
     @JsonView(Views.DetailView.class)
-    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  //one way to restrict output from the field below
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  //one way to restrict output from the field below
     private String password;
 
 

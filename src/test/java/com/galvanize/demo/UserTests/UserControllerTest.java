@@ -144,7 +144,6 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount", is(3)));
 
-
     }
 
     @Test
@@ -165,8 +164,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.authenticated", is(true)))
                 .andExpect(jsonPath("$.user.id", is(testUser.getId())))
-                .andExpect(jsonPath("$.user.email", is("john7@example.com")))
-                .andExpect(jsonPath("$.user.password", is("password123")));
+                .andExpect(jsonPath("$.user.email", is("john7@example.com")));
     }
 
     @Test
